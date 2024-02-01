@@ -8,9 +8,11 @@ Object.defineProperty(exports, "PostEntity", {
         return PostEntity;
     }
 });
+const _classtransformer = require("class-transformer");
 const _typeorm = require("typeorm");
 const _constants = require("../constants");
-const _classtransformer = require("class-transformer");
+const _commententity = require("./comment.entity");
+const _categoryentity = require("./category.entity");
 function _ts_decorate(decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -22,6 +24,20 @@ function _ts_metadata(k, v) {
 }
 let PostEntity = class PostEntity extends _typeorm.BaseEntity {
 };
+_ts_decorate([
+    (0, _classtransformer.Expose)(),
+    (0, _typeorm.ManyToOne)(()=>_categoryentity.CategoryEntity, (category)=>category.posts, {
+        nullable: true,
+        onDelete: 'SET NULL'
+    }),
+    _ts_metadata("design:type", typeof Relation === "undefined" ? Object : Relation)
+], PostEntity.prototype, "category", void 0);
+_ts_decorate([
+    (0, _typeorm.OneToMany)(()=>_commententity.CommentEntity, (comment)=>comment.post, {
+        cascade: true
+    }),
+    _ts_metadata("design:type", Array)
+], PostEntity.prototype, "comments", void 0);
 _ts_decorate([
     (0, _classtransformer.Expose)(),
     (0, _typeorm.PrimaryColumn)({

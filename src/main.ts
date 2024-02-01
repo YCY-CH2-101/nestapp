@@ -13,6 +13,8 @@ async function bootstrap() {
         // 只使用error和warn这两种输出，避免在控制台冗余输出
         logger: ['error', 'warn'],
     });
+
+   
     // 设置全局访问前缀
     app.setGlobalPrefix('api');
     // 启动后的输出

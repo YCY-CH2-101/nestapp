@@ -24,7 +24,7 @@ const database = ()=>({
         // database: '3r',
         // 以下为sqlite配置
         type: 'better-sqlite3',
-        database: (0, _path.resolve)(__dirname, '/Users/hang.yang/nestapp/back/database4.db'),
+        database: (0, _path.resolve)(__dirname, '/Users/hang.yang/git_project/nestapp/back/database7.db'),
         synchronize: true,
         autoLoadEntities: true
     });
