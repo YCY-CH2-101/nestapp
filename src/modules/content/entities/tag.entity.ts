@@ -1,18 +1,29 @@
-// import { Entity, PrimaryColumn, Column, ManyToMany, Relation } from "typeorm";
-// import { PostEntity } from "./post.entity";
+import { Entity, PrimaryColumn, Column, ManyToMany, Relation } from "typeorm";
+import { PostEntity } from "./post.entity";
+import { Exclude, Expose } from "class-transformer";
 
-// // src/modules/content/entities/tag.entity.ts
-// @Entity('content_tags')
-// export class TagEntity {
-//     @PrimaryColumn({ type: 'varchar', generated: 'uuid', length: 36 })
-//     id: string;
+// src/modules/content/entities/tag.entity.ts
+@Exclude()
+@Entity('content_tags')
+export class TagEntity {
+    @Expose()
+    @PrimaryColumn({ type: 'varchar', generated: 'uuid', length: 36 })
+    id: string;
 
-//     @Column({ comment: '标签名称' })
-//     name: string;
+    @Expose()
+    @Column({ comment: '标签名称' })
+    name: string;
   
-//     @Column({ comment: '标签描述', nullable: true })
-//     description?: string;
+    @Expose()
+    @Column({ comment: '标签描述', nullable: true })
+    description?: string;
 
-//     @ManyToMany(() => PostEntity, (post) => post.tags)
-//     posts: Relation<PostEntity[]>;
-// }
+    /**
+     * 通过queryBuilder生成的文章数量(虚拟字段)
+     */
+    @Expose()
+    postCount: number;
+    
+    @ManyToMany(() => PostEntity, (post) => post.tags)
+    posts: Relation<PostEntity[]>;
+}

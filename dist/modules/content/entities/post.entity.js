@@ -13,6 +13,7 @@ const _typeorm = require("typeorm");
 const _constants = require("../constants");
 const _commententity = require("./comment.entity");
 const _categoryentity = require("./category.entity");
+const _tagentity = require("./tag.entity");
 function _ts_decorate(decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -24,20 +25,6 @@ function _ts_metadata(k, v) {
 }
 let PostEntity = class PostEntity extends _typeorm.BaseEntity {
 };
-_ts_decorate([
-    (0, _classtransformer.Expose)(),
-    (0, _typeorm.ManyToOne)(()=>_categoryentity.CategoryEntity, (category)=>category.posts, {
-        nullable: true,
-        onDelete: 'SET NULL'
-    }),
-    _ts_metadata("design:type", typeof Relation === "undefined" ? Object : Relation)
-], PostEntity.prototype, "category", void 0);
-_ts_decorate([
-    (0, _typeorm.OneToMany)(()=>_commententity.CommentEntity, (comment)=>comment.post, {
-        cascade: true
-    }),
-    _ts_metadata("design:type", Array)
-], PostEntity.prototype, "comments", void 0);
 _ts_decorate([
     (0, _classtransformer.Expose)(),
     (0, _typeorm.PrimaryColumn)({
@@ -125,6 +112,32 @@ _ts_decorate([
     }),
     _ts_metadata("design:type", typeof Date === "undefined" ? Object : Date)
 ], PostEntity.prototype, "updatedAt", void 0);
+_ts_decorate([
+    (0, _classtransformer.Expose)(),
+    _ts_metadata("design:type", Number)
+], PostEntity.prototype, "commentCount", void 0);
+_ts_decorate([
+    (0, _classtransformer.Expose)(),
+    (0, _typeorm.ManyToOne)(()=>_categoryentity.CategoryEntity, (category)=>category.posts, {
+        nullable: true,
+        onDelete: 'SET NULL'
+    }),
+    _ts_metadata("design:type", typeof Relation === "undefined" ? Object : Relation)
+], PostEntity.prototype, "category", void 0);
+_ts_decorate([
+    (0, _classtransformer.Expose)(),
+    (0, _typeorm.ManyToMany)(()=>_tagentity.TagEntity, (tag)=>tag.posts, {
+        cascade: true
+    }),
+    (0, _typeorm.JoinTable)(),
+    _ts_metadata("design:type", Array)
+], PostEntity.prototype, "tags", void 0);
+_ts_decorate([
+    (0, _typeorm.OneToMany)(()=>_commententity.CommentEntity, (comment)=>comment.post, {
+        cascade: true
+    }),
+    _ts_metadata("design:type", Array)
+], PostEntity.prototype, "comments", void 0);
 PostEntity = _ts_decorate([
     (0, _typeorm.Entity)('content_posts')
 ], PostEntity);

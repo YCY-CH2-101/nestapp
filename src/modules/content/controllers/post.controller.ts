@@ -33,6 +33,7 @@ export class PostController {
         )
         options: QueryPostDto,
     ) {
+        console.log("123");
         return this.service.paginate(options);
     }
 

@@ -27,6 +27,7 @@ function _ts_param(paramIndex, decorator) {
 }
 let PostController = class PostController {
     async list(options) {
+        console.log("123");
         return this.service.paginate(options);
     }
     async store(data) {

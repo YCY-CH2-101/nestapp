@@ -4,6 +4,8 @@ import {
     Column,
     CreateDateColumn,
     Entity,
+    JoinTable,
+    ManyToMany,
     ManyToOne,
     OneToMany,
     PrimaryColumn,
@@ -15,28 +17,10 @@ import type { Relation } from 'typeorm';
 import { PostBodyType } from "../constants";
 import { CommentEntity } from "./comment.entity";
 import { CategoryEntity } from './category.entity';
+import { TagEntity } from './tag.entity';
 
 @Entity('content_posts')
 export class PostEntity extends BaseEntity {
-
-    @Expose()
-    @ManyToOne(() => CategoryEntity, (category) => category.posts, {
-        nullable: true,
-        onDelete: 'SET NULL',
-    })
-    category: Relation<CategoryEntity>;
-
-    // @Expose()
-    // @ManyToMany(() => TagEntity, (tag) => tag.posts, {
-    //     cascade: true,
-    // })
-    // @JoinTable()
-    // tags: Relation<TagEntity>[];
-
-    @OneToMany(() => CommentEntity, (comment) => comment.post, {
-        cascade: true,
-    })
-    comments: Relation<CommentEntity>[];
 
     @Expose()
     @PrimaryColumn({ type: 'varchar', generated: 'uuid', length: 36 })
@@ -91,5 +75,32 @@ export class PostEntity extends BaseEntity {
         comment: '更新时间',
     })
     updatedAt: Date;
+
+
+    /**
+     * 通过queryBuilder生成的评论数量(虚拟字段)
+     */
+    @Expose()
+    commentCount: number;
+
+
+    @Expose()
+    @ManyToOne(() => CategoryEntity, (category) => category.posts, {
+        nullable: true,
+        onDelete: 'SET NULL',
+    })
+    category: Relation<CategoryEntity>;
+
+    @Expose()
+    @ManyToMany(() => TagEntity, (tag) => tag.posts, {
+        cascade: true,
+    })
+    @JoinTable()
+    tags: Relation<TagEntity>[];
+
+    @OneToMany(() => CommentEntity, (comment) => comment.post, {
+        cascade: true,
+    })
+    comments: Relation<CommentEntity>[];
 
 }
