@@ -11,9 +11,9 @@ Object.defineProperty(exports, "PostEntity", {
 const _classtransformer = require("class-transformer");
 const _typeorm = require("typeorm");
 const _constants = require("../constants");
-const _commententity = require("./comment.entity");
 const _categoryentity = require("./category.entity");
 const _tagentity = require("./tag.entity");
+const _commententity = require("./comment.entity");
 function _ts_decorate(decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -114,15 +114,11 @@ _ts_decorate([
 ], PostEntity.prototype, "updatedAt", void 0);
 _ts_decorate([
     (0, _classtransformer.Expose)(),
-    _ts_metadata("design:type", Number)
-], PostEntity.prototype, "commentCount", void 0);
-_ts_decorate([
-    (0, _classtransformer.Expose)(),
     (0, _typeorm.ManyToOne)(()=>_categoryentity.CategoryEntity, (category)=>category.posts, {
         nullable: true,
         onDelete: 'SET NULL'
     }),
-    _ts_metadata("design:type", typeof Relation === "undefined" ? Object : Relation)
+    _ts_metadata("design:type", typeof _typeorm.Relation === "undefined" ? Object : _typeorm.Relation)
 ], PostEntity.prototype, "category", void 0);
 _ts_decorate([
     (0, _classtransformer.Expose)(),

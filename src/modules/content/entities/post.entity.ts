@@ -8,16 +8,22 @@ import {
     ManyToMany,
     ManyToOne,
     OneToMany,
+    // OneToMany,
+    // JoinTable,
+    // ManyToMany,
+    // ManyToOne,
+    // OneToMany,
     PrimaryColumn,
+    Relation,
     UpdateDateColumn,
 } from 'typeorm';
 
-import type { Relation } from 'typeorm';
+// import type { Relation } from 'typeorm';
 
 import { PostBodyType } from "../constants";
-import { CommentEntity } from "./comment.entity";
 import { CategoryEntity } from './category.entity';
 import { TagEntity } from './tag.entity';
+import { CommentEntity } from './comment.entity';
 
 @Entity('content_posts')
 export class PostEntity extends BaseEntity {
@@ -76,20 +82,12 @@ export class PostEntity extends BaseEntity {
     })
     updatedAt: Date;
 
-
-    /**
-     * 通过queryBuilder生成的评论数量(虚拟字段)
-     */
-    @Expose()
-    commentCount: number;
-
-
     @Expose()
     @ManyToOne(() => CategoryEntity, (category) => category.posts, {
         nullable: true,
         onDelete: 'SET NULL',
     })
-    category: Relation<CategoryEntity>;
+    category: Relation<CategoryEntity>
 
     @Expose()
     @ManyToMany(() => TagEntity, (tag) => tag.posts, {
@@ -102,5 +100,4 @@ export class PostEntity extends BaseEntity {
         cascade: true,
     })
     comments: Relation<CommentEntity>[];
-
 }

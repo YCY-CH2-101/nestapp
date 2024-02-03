@@ -10,7 +10,6 @@ Object.defineProperty(exports, "TagEntity", {
 });
 const _typeorm = require("typeorm");
 const _postentity = require("./post.entity");
-const _classtransformer = require("class-transformer");
 function _ts_decorate(decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -23,7 +22,6 @@ function _ts_metadata(k, v) {
 let TagEntity = class TagEntity {
 };
 _ts_decorate([
-    (0, _classtransformer.Expose)(),
     (0, _typeorm.PrimaryColumn)({
         type: 'varchar',
         generated: 'uuid',
@@ -32,14 +30,13 @@ _ts_decorate([
     _ts_metadata("design:type", String)
 ], TagEntity.prototype, "id", void 0);
 _ts_decorate([
-    (0, _classtransformer.Expose)(),
     (0, _typeorm.Column)({
-        comment: '标签名称'
+        comment: '标签名称',
+        unique: true
     }),
     _ts_metadata("design:type", String)
 ], TagEntity.prototype, "name", void 0);
 _ts_decorate([
-    (0, _classtransformer.Expose)(),
     (0, _typeorm.Column)({
         comment: '标签描述',
         nullable: true
@@ -47,14 +44,9 @@ _ts_decorate([
     _ts_metadata("design:type", String)
 ], TagEntity.prototype, "description", void 0);
 _ts_decorate([
-    (0, _classtransformer.Expose)(),
-    _ts_metadata("design:type", Number)
-], TagEntity.prototype, "postCount", void 0);
-_ts_decorate([
     (0, _typeorm.ManyToMany)(()=>_postentity.PostEntity, (post)=>post.tags),
     _ts_metadata("design:type", typeof _typeorm.Relation === "undefined" ? Object : _typeorm.Relation)
 ], TagEntity.prototype, "posts", void 0);
 TagEntity = _ts_decorate([
-    (0, _classtransformer.Exclude)(),
     (0, _typeorm.Entity)('content_tags')
 ], TagEntity);
